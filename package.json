@@ -59,7 +59,6 @@
     "react-testing-library",
     "cypress",
     "solid",
-    "solid",
     "clean-architecture",
     "clean-code"
   ]
