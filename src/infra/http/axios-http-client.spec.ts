@@ -3,8 +3,21 @@ import { faker } from "@faker-js/faker/.";
 import axios from "axios";
 import { AxiosHttpClient } from "./axios-http-client";
 
+const user = {
+  email: faker.internet.email(),
+  fullName: faker.person.fullName(),
+  gender: faker.person.sexType,
+};
+
+const mockedAxiosResult = {
+  data: user,
+  status: faker.number.int(),
+};
+
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+mockedAxios.post.mockResolvedValue(mockedAxiosResult);
 
 const makeSut = (): AxiosHttpClient => {
   return new AxiosHttpClient();
@@ -12,13 +25,7 @@ const makeSut = (): AxiosHttpClient => {
 
 const mockPostRequest = (): HttpPostParams<any> => ({
   url: faker.internet.url(),
-  body: {
-    user: {
-      email: faker.internet.email(),
-      fullName: faker.person.fullName(),
-      gender: faker.person.sexType,
-    },
-  },
+  body: user,
 });
 
 describe("AxiosHttpClient", () => {
@@ -28,5 +35,15 @@ describe("AxiosHttpClient", () => {
     await sut.post(request);
 
     expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body);
+  });
+
+  test("Should return the correct statusCoe and body", async () => {
+    const sut = makeSut();
+    const httpResponse = await sut.post(mockPostRequest());
+
+    expect(httpResponse).toEqual({
+      statusCode: mockedAxiosResult.status,
+      body: mockedAxiosResult.data,
+    });
   });
 });
