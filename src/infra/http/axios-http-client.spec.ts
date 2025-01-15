@@ -1,5 +1,5 @@
 import { HttpPostParams } from "@/data/protocols/http";
-import { faker } from "@faker-js/faker/.";
+import { faker } from "@faker-js/faker";
 import axios from "axios";
 import { AxiosHttpClient } from "./axios-http-client";
 
