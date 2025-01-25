@@ -1,17 +1,25 @@
-import { Config } from "jest";
+import { Config as JestConfig } from "jest";
 
-const jestConfig: Config = {
-  roots: ["<rootDir>/src"],
-  collectCoverageFrom: ["<rootDir>/src/**/*.{ts,tsx}"],
+const config: JestConfig = {
+  roots: ["<rootDir>/src", "<rootDir>/tests"],
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.{ts,tsx}",
+    "!<rootDir>/src/main/**/*",
+    "!<rootDir>/src/**/index.ts",
+    "!**/*.d.ts",
+  ],
   coverageDirectory: "coverage",
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
+  testPathIgnorePatterns: ["<rootDir>/node_modules/"],
+  setupFilesAfterEnv: ["<rootDir>/src/main/config/jest-setup.ts"],
   transform: {
-    ".+\\.(ts)$": "ts-jest",
+    ".+\\.(ts|tsx)$": "ts-jest",
   },
   moduleNameMapper: {
+    "@/tests/(.*)": "<rootDir>/tests/$1",
     "@/(.*)": "<rootDir>/src/$1",
   },
   verbose: true,
 };
 
-export default jestConfig;
+export default config;
