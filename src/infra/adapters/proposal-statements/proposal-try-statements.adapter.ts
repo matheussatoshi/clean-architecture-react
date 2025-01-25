@@ -9,18 +9,18 @@ export async function proposalTryStatements<T = any>(
 ): Promise<ProposalTryStatementsResponse<T>> {
   try {
     const value = await promise;
-    return [true, null, value];
+    return [true, false, value];
   } catch (error) {
     const axiosError = error as AxiosError<ProposalTryStatementsError>;
 
     if (axiosError.response && axiosError.response.status === 403) {
-      return [false, "Erro 403 - Não autorizado", null];
+      return [false, true, null];
     }
 
     if (axiosError.response && axiosError.response.data?.message) {
-      return [false, axiosError.response.data.message, null];
+      return [false, true, null];
     }
 
-    return [false, `Erro desconhecido: ${axiosError.message}`, null];
+    return [false, true, null];
   }
 }

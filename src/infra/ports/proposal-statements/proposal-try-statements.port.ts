@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 
 export type ProposalTryStatementsResponse<T> = Promise<
-  [boolean, string | null, T | null | undefined | undefined]
+  [boolean, boolean | null, T | null | undefined | undefined]
 >;
 
 export type ProposalTryStatementsResponseToHttpRequest<T> = Promise<
