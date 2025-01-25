@@ -15,6 +15,7 @@ const config: JestConfig = {
   transform: {
     ".+\\.(ts|tsx)$": "ts-jest",
   },
+  testMatch: ["**/*.spec.ts", "**/*.test.ts"],
   moduleNameMapper: {
     "@/tests/(.*)": "<rootDir>/tests/$1",
     "@/(.*)": "<rootDir>/src/$1",
