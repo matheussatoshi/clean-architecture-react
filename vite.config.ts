@@ -37,11 +37,6 @@ export default defineConfig({
     include: ["react", "react-dom"],
   },
 
-  /* Auto-import */
-  esbuild: {
-    jsxInject: `import React from 'react'`,
-  },
-
   /* Server Config */
   server: {
     port: 3000,
