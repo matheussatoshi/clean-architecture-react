@@ -4,7 +4,7 @@ export type ProposalTryStatementsResponse<T> = Promise<
   [boolean, boolean | null, T | null | undefined | undefined]
 >;
 
-export type ProposalTryStatementsResponseToHttpRequest<T> = Promise<
+export type ProposalResponse<T> = Promise<
   ProposalTryStatementsResponse<AxiosResponse<T, any>>
 >;
 

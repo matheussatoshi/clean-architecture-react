@@ -7,7 +7,7 @@ import {
   type MakeNoBodyHttpRequestParams,
   type MakeWithBodyHttpRequestParams,
 } from "@/infra/ports/http";
-import type { ProposalTryStatementsResponseToHttpRequest } from "@/infra/ports/proposal-statements";
+import type { ProposalResponse } from "@/infra/ports/proposal-statements";
 import Axios, { AxiosRequestConfig, type AxiosInstance } from "axios";
 
 export class AxiosHttpClientAdapter implements HttpClientPort {
@@ -52,13 +52,13 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   private async makeRequest<T = any>(
     params: MakeHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await proposalTryStatements(this.httpInstance?.request<T>(params));
   }
 
   public async get<T>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.GET,
       ...params,
@@ -67,7 +67,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async post<T>(
     params: MakeWithBodyHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.POST,
       ...params,
@@ -76,7 +76,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async patch<T>(
     params: MakeWithBodyHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.PATCH,
       ...params,
@@ -85,7 +85,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async put<T>(
     params: MakeWithBodyHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.PUT,
       ...params,
@@ -94,7 +94,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async delete<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.DELETE,
       ...params,
@@ -103,7 +103,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async connect<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.CONNECT,
       ...params,
@@ -112,7 +112,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async head<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.HEAD,
       ...params,
@@ -121,7 +121,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async options<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.OPTIONS,
       ...params,
@@ -130,7 +130,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async trace<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalTryStatementsResponseToHttpRequest<T> {
+  ): ProposalResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.TRACE,
       ...params,
