@@ -8,6 +8,8 @@ export type ProposalResponse<T> = Promise<
   ProposalTryStatementsResponse<AxiosResponse<T, any>>
 >;
 
+export type ProposalResponseForwarded<T> = Promise<ProposalResponse<T>>;
+
 export type ProposalTryStatementsError = {
   message?: string;
 };
