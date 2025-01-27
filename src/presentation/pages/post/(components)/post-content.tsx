@@ -15,10 +15,10 @@ export const PostContent = memo(
     }
 
     return (
-      <div>
-        <h1>{title.toUpperCase()}</h1>
-        <p>{body} </p>
-        <h3>By: {author}</h3>
+      <div className="flex flex-col gap-4 p-10 text-center">
+        <h1 className="text-4xl">{title.toUpperCase()}</h1>
+        <p className="text-lg text-neutral-500 mt-10 text-left">{body} </p>
+        <h3 className="text-right text-xl">By: {author}</h3>
       </div>
     );
   },

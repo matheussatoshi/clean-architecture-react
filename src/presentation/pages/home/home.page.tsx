@@ -26,7 +26,10 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div>
+    <div className="p-10 h-full max-w-7xl w-full mx-auto flex flex-col justify-center items-center">
+      <h1 className="bg-white w-full text-center text-4xl pt-4 pb-8 sticky top-0">
+        All Posts
+      </h1>
       {loading && !error && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {data && !loading && !error && <PostList data={data} />}

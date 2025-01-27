@@ -30,15 +30,20 @@ export default function PostPage() {
   }, []);
 
   return (
-    <div>
+    <div className="p-10 max-w-7xl mx-auto justify-center flex flex-col">
       {loading && !error && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
+      <Link
+        className="text-left flex transition-all gap-2 hover:gap-2.5 w-[120px] py-2 px-2 text-blue-500"
+        href="/"
+      >
+        <span>{"⬅️"}</span> <span>Go Home</span>
+      </Link>
       {data && !loading && !error && (
         <PostContent author={author} body={data.body} title={data.title} />
       )}
       <br />
-      <Link href="/">Go Home</Link>
     </div>
   );
 }
