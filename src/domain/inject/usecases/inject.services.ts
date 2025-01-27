@@ -1,6 +1,6 @@
 import { PostsController } from "@/domain/modules/posts";
-import { LocalStorageClientAdapter } from "@/infra/adapters/cache";
-import { AxiosHttpClientAdapter } from "@/infra/adapters/http";
+import { LocalStorageClientAdapter } from "@/infra/cache/adapter";
+import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
 import { createContainer } from "iti";
 
 export const container = createContainer()

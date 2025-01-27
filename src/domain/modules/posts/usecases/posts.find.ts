@@ -1,5 +1,5 @@
-import { AxiosHttpClientAdapter } from "@/infra/adapters/http";
-import { ProposalResponse } from "@/infra/ports/proposal-statements";
+import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
+import { ProposalResponse } from "@/infra/middleware/proposal-statements";
 import { FindPostsContract } from "../contracts/posts.contract";
 import { PostBodyResponse } from "../domain/posts.dto";
 

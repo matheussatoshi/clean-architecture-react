@@ -1,6 +1,6 @@
-import { proposalTryStatements } from "@/infra/adapters/proposal-statements";
 import { faker } from "@faker-js/faker";
 import { createAxiosError, mockPromiseData } from "./proposal-statements.mock";
+import { proposalTryStatements } from "@/infra/middleware/proposal-statements/proposal-try-statements.adapter";
 
 const makeSut = () => ({
   createAxiosError,

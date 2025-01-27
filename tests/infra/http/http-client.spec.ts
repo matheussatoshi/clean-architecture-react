@@ -1,9 +1,10 @@
-import { AxiosHttpClientAdapter } from "@/infra/adapters/http";
-import { proposalTryStatements } from "@/infra/adapters/proposal-statements";
+import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
+
 import {
   MakeNoBodyHttpRequestParams,
   MakeWithBodyHttpRequestParams,
-} from "@/infra/ports/http";
+} from "@/data/protocols/http-client.protocol";
+import { proposalTryStatements } from "@/infra/middleware/proposal-statements/proposal-try-statements.adapter";
 import { mockResolvedValue, mockResponse } from "./http-client.mock";
 
 jest.mock("@/infra/adapters/proposal-statements", () => ({

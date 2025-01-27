@@ -1,7 +1,7 @@
 import {
   ProposalResponse,
   ProposalResponseForwarded,
-} from "@/infra/ports/proposal-statements";
+} from "@/infra/middleware/proposal-statements";
 import { PostBodyResponse } from "../domain/posts.dto";
 
 export interface FindPostsContract {

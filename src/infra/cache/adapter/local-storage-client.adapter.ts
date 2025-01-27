@@ -1,4 +1,4 @@
-import { CacheClientPort } from "@/infra/ports/cache";
+import { CacheClientPort } from "../ports";
 
 export class LocalStorageClientAdapter implements CacheClientPort {
   getItem(key: string): string | null {

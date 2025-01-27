@@ -1,5 +1,5 @@
-import { LocalStorageClientAdapter } from "@/infra/adapters/cache";
-import { CacheClientPort } from "@/infra/ports/cache";
+import { LocalStorageClientAdapter } from "@/infra/cache/adapter";
+import { CacheClientPort } from "@/infra/cache/ports";
 import { faker } from "@faker-js/faker";
 import { mockStorageData } from "./cache-client.mock";
 

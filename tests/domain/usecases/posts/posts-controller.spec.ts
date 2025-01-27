@@ -1,5 +1,5 @@
 import { PostsController } from "@/domain/modules/posts";
-import { AxiosHttpClientAdapter } from "@/infra/adapters/http";
+import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
 import { mockPosts } from "./posts-controller.mock";
 
 const makeHttpClientMock = () => {

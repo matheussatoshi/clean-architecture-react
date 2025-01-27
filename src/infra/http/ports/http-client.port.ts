@@ -1,8 +1,8 @@
-import { ProposalResponse } from "../proposal-statements";
+import { ProposalResponse } from "@/infra/middleware/proposal-statements";
 import type {
   MakeNoBodyHttpRequestParams,
   MakeWithBodyHttpRequestParams,
-} from "./http-client.protocol";
+} from "../../../data/protocols/http-client.protocol";
 
 export interface HttpClientPort {
   setAuthorization(token: string): void | undefined;

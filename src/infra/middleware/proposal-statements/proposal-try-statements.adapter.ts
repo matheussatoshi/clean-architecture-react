@@ -1,7 +1,7 @@
 import type {
   ProposalTryStatementsError,
   ProposalTryStatementsResponse,
-} from "@/infra/ports/proposal-statements";
+} from "@/infra/middleware/proposal-statements";
 import { AxiosError } from "axios";
 
 export async function proposalTryStatements<T = any>(
