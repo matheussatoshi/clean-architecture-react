@@ -1,5 +1,5 @@
 import { proposalTryStatements } from "@/infra/adapters/proposal-statements";
-import appConfig from "@/infra/app";
+import appConfig from "@/main/config/default";
 import {
   HttpMethods,
   type HttpClientPort,
