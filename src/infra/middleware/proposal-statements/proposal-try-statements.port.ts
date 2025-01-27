@@ -1,7 +1,8 @@
+import { PromiseStatusResponse } from "@/data/protocols/http-client.protocol";
 import { AxiosResponse } from "axios";
 
 export type ProposalTryStatementsResponse<T> = Promise<
-  [boolean, boolean | null, T | null | undefined | undefined]
+  [PromiseStatusResponse, PromiseStatusResponse, T | null | undefined]
 >;
 
 export type ProposalResponse<T> = Promise<

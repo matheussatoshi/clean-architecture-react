@@ -42,3 +42,11 @@ export enum HttpStatus {
   TOO_MANY_REQUESTS = 429,
   INTERNAL_SERVER = 500,
 }
+
+type Response = {
+  message: string;
+  status: HttpStatus;
+  resolve: boolean;
+};
+
+export type PromiseStatusResponse = Response;
