@@ -1,8 +1,13 @@
-const appConfig = {
+import { makeURL } from "@/main/factories/http";
+
+const defaultConfig = {
   api: {
-    url: "https://jsonplaceholder.typicode.com",
-    timeout: 3000,
+    url: makeURL(),
+    timeout: process.env.API_TIMEOUT,
+  },
+  storage: {
+    keys: {},
   },
 };
 
-export default appConfig;
+export default defaultConfig;

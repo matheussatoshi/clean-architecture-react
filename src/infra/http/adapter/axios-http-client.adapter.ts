@@ -1,6 +1,6 @@
 import { tuple, type TupleTreatment } from "@/infra/middleware/tuple-it";
 
-import appConfig from "@/main/config/default";
+import defaultConfig from "@/main/config/default";
 import Axios, { AxiosRequestConfig, type AxiosInstance } from "axios";
 import {
   HttpMethods,
@@ -15,8 +15,8 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   constructor(config?: AxiosRequestConfig) {
     const finalConfig: AxiosRequestConfig = {
-      timeout: appConfig.api.timeout || config.timeout,
-      baseURL: appConfig.api.url || config.baseURL,
+      timeout: defaultConfig.api.timeout || config.timeout,
+      baseURL: defaultConfig.api.url || config.baseURL,
       headers: {
         "Content-Type": "application/json",
         "Content-Encoding": "gzip",
