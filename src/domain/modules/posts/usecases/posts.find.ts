@@ -1,5 +1,5 @@
 import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
-import { ProposalResponse } from "@/infra/middleware/proposal-statements";
+import { TupleTreatment } from "@/infra/middleware/tuple-it";
 import { FindPostsContract } from "../contracts/posts.contract";
 import { PostBodyResponse } from "../domain/posts.dto";
 
@@ -10,7 +10,7 @@ export class FindPosts implements FindPostsContract {
     this.httpClient = httpClient;
   }
 
-  public async findAll(): ProposalResponse<PostBodyResponse[]> {
+  public async findAll(): TupleTreatment<PostBodyResponse[]> {
     const response = await this.httpClient.get<PostBodyResponse[]>({
       url: "/posts",
     });
@@ -18,7 +18,7 @@ export class FindPosts implements FindPostsContract {
     return response;
   }
 
-  public async findById(id: string): ProposalResponse<PostBodyResponse> {
+  public async findById(id: string): TupleTreatment<PostBodyResponse> {
     const response = await this.httpClient.get<PostBodyResponse>({
       url: `/posts/${id}`,
     });

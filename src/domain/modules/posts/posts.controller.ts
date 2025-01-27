@@ -1,5 +1,5 @@
 import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
-import { ProposalResponse } from "@/infra/middleware/proposal-statements";
+import { TupleTreatment } from "@/infra/middleware/tuple-it";
 import { PostControllerContract } from "./contracts";
 import { PostBodyResponse } from "./domain";
 import { FindPosts } from "./usecases";
@@ -11,13 +11,11 @@ export class PostsController implements PostControllerContract {
     this.findPostsService = new FindPosts(httpClient);
   }
 
-  public async findAll(): Promise<ProposalResponse<PostBodyResponse[]>> {
+  public async findAll(): Promise<TupleTreatment<PostBodyResponse[]>> {
     return this.findPostsService.findAll();
   }
 
-  public async findById(
-    id: string,
-  ): Promise<ProposalResponse<PostBodyResponse>> {
+  public async findById(id: string): Promise<TupleTreatment<PostBodyResponse>> {
     return this.findPostsService.findById(id);
   }
 }

@@ -1,15 +1,12 @@
-import {
-  ProposalResponse,
-  ProposalResponseForwarded,
-} from "@/infra/middleware/proposal-statements";
+import { TupleForwarded, TupleTreatment } from "@/infra/middleware/tuple-it";
 import { PostBodyResponse } from "../domain/posts.dto";
 
 export interface FindPostsContract {
-  findAll(): ProposalResponse<PostBodyResponse[]>;
-  findById(id: string): ProposalResponse<PostBodyResponse>;
+  findAll(): TupleTreatment<PostBodyResponse[]>;
+  findById(id: string): TupleTreatment<PostBodyResponse>;
 }
 
 export interface PostControllerContract {
-  findAll(): ProposalResponseForwarded<PostBodyResponse[]>;
-  findById(id: string): ProposalResponseForwarded<PostBodyResponse>;
+  findAll(): TupleForwarded<PostBodyResponse[]>;
+  findById(id: string): TupleForwarded<PostBodyResponse>;
 }

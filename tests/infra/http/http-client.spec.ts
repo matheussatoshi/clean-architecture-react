@@ -4,7 +4,7 @@ import {
   MakeNoBodyHttpRequestParams,
   MakeWithBodyHttpRequestParams,
 } from "@/data/protocols/http-client.protocol";
-import { proposalTryStatements } from "@/infra/middleware/proposal-statements/proposal-try-statements.adapter";
+import { tuple } from "@/infra/middleware/tuple-it/tuple-it.adapter";
 import { mockResolvedValue, mockResponse } from "./http-client.mock";
 
 jest.mock("@/infra/adapters/proposal-statements", () => ({
@@ -23,7 +23,7 @@ describe("AxiosHttpClientAdapter", () => {
     it("Should call get method and return success response", async () => {
       const response = mockResponse("test");
       const resolvedValue = mockResolvedValue(true, null, response);
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeNoBodyHttpRequestParams = {
         url: "/test-url",
@@ -46,7 +46,7 @@ describe("AxiosHttpClientAdapter", () => {
         "Erro 403 - Não autorizado",
         null,
       );
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeNoBodyHttpRequestParams = {
         url: "/test-url",
@@ -69,7 +69,7 @@ describe("AxiosHttpClientAdapter", () => {
         "Erro desconhecido: Network Error",
         null,
       );
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeNoBodyHttpRequestParams = {
         url: "/test-url",
@@ -91,7 +91,7 @@ describe("AxiosHttpClientAdapter", () => {
     it("Should call post method and return success response", async () => {
       const response = mockResponse("test");
       const resolvedValue = mockResolvedValue(true, null, response);
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeWithBodyHttpRequestParams = {
         url: "/test-url",
@@ -115,7 +115,7 @@ describe("AxiosHttpClientAdapter", () => {
         "Erro 500 - Internal Server Error",
         null,
       );
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeWithBodyHttpRequestParams = {
         url: "/test-url",
@@ -138,7 +138,7 @@ describe("AxiosHttpClientAdapter", () => {
     it("Should call patch method and return success response", async () => {
       const response = mockResponse("updated");
       const resolvedValue = mockResolvedValue(true, null, response);
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeWithBodyHttpRequestParams = {
         url: "/test-url",
@@ -162,7 +162,7 @@ describe("AxiosHttpClientAdapter", () => {
         "Erro 400 - Bad Request",
         null,
       );
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeWithBodyHttpRequestParams = {
         url: "/test-url",
@@ -185,7 +185,7 @@ describe("AxiosHttpClientAdapter", () => {
     it("Should call put method and return success response", async () => {
       const response = mockResponse("put success");
       const resolvedValue = mockResolvedValue(true, null, response);
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeWithBodyHttpRequestParams = {
         url: "/test-url",
@@ -209,7 +209,7 @@ describe("AxiosHttpClientAdapter", () => {
         "Erro 404 - Not Found",
         null,
       );
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeWithBodyHttpRequestParams = {
         url: "/test-url",
@@ -232,7 +232,7 @@ describe("AxiosHttpClientAdapter", () => {
     it("Should call delete method and return success response", async () => {
       const response = mockResponse("deleted");
       const resolvedValue = mockResolvedValue(true, null, response);
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeNoBodyHttpRequestParams = {
         url: "/test-url",
@@ -255,7 +255,7 @@ describe("AxiosHttpClientAdapter", () => {
         "Erro 500 - Internal Server Error",
         null,
       );
-      (proposalTryStatements as jest.Mock).mockResolvedValue(resolvedValue);
+      (tuple as jest.Mock).mockResolvedValue(resolvedValue);
 
       const params: MakeNoBodyHttpRequestParams = {
         url: "/test-url",

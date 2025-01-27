@@ -1,7 +1,4 @@
-import {
-  proposalTryStatements,
-  type ProposalResponse,
-} from "@/infra/middleware/proposal-statements";
+import { tuple, type TupleTreatment } from "@/infra/middleware/tuple-it";
 
 import appConfig from "@/main/config/default";
 import Axios, { AxiosRequestConfig, type AxiosInstance } from "axios";
@@ -55,13 +52,11 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   private async makeRequest<T = any>(
     params: MakeHttpRequestParams,
-  ): ProposalResponse<T> {
-    return await proposalTryStatements(this.httpInstance?.request<T>(params));
+  ): TupleTreatment<T> {
+    return await tuple(this.httpInstance?.request<T>(params));
   }
 
-  public async get<T>(
-    params: MakeNoBodyHttpRequestParams,
-  ): ProposalResponse<T> {
+  public async get<T>(params: MakeNoBodyHttpRequestParams): TupleTreatment<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.GET,
       ...params,
@@ -70,7 +65,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async post<T>(
     params: MakeWithBodyHttpRequestParams,
-  ): ProposalResponse<T> {
+  ): TupleTreatment<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.POST,
       ...params,
@@ -79,7 +74,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async patch<T>(
     params: MakeWithBodyHttpRequestParams,
-  ): ProposalResponse<T> {
+  ): TupleTreatment<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.PATCH,
       ...params,
@@ -88,7 +83,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async put<T>(
     params: MakeWithBodyHttpRequestParams,
-  ): ProposalResponse<T> {
+  ): TupleTreatment<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.PUT,
       ...params,
@@ -97,7 +92,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async delete<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalResponse<T> {
+  ): TupleTreatment<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.DELETE,
       ...params,
@@ -106,7 +101,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async connect<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalResponse<T> {
+  ): TupleTreatment<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.CONNECT,
       ...params,
@@ -115,7 +110,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async head<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalResponse<T> {
+  ): TupleTreatment<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.HEAD,
       ...params,
@@ -124,7 +119,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async options<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalResponse<T> {
+  ): TupleTreatment<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.OPTIONS,
       ...params,
@@ -133,7 +128,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
 
   public async trace<T = any>(
     params: MakeNoBodyHttpRequestParams,
-  ): ProposalResponse<T> {
+  ): TupleTreatment<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.TRACE,
       ...params,

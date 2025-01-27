@@ -2,15 +2,12 @@ import {
   HttpStatus,
   PromiseStatusResponse,
 } from "@/data/protocols/http-client.protocol";
-import type {
-  ProposalTryStatementsError,
-  ProposalTryStatementsResponse,
-} from "@/infra/middleware/proposal-statements";
+import type { TupleError, TupleItResponse } from "@/infra/middleware/tuple-it";
 import { AxiosError } from "axios";
 
-export async function proposalTryStatements<T = any>(
+export async function tuple<T = any>(
   promise: Promise<T>,
-): Promise<ProposalTryStatementsResponse<T>> {
+): Promise<TupleItResponse<T>> {
   try {
     const value = await promise;
 
@@ -21,7 +18,7 @@ export async function proposalTryStatements<T = any>(
 
     return [ok, null, value];
   } catch (catchError) {
-    const axiosError = catchError as AxiosError<ProposalTryStatementsError>;
+    const axiosError = catchError as AxiosError<TupleError>;
 
     if (axiosError.response) {
       const statusCode = axiosError.response.status;
@@ -93,7 +90,6 @@ function createOkResponse(message: string, status: HttpStatus) {
   };
 }
 
-// Função para criar a resposta de erro (error)
 function createErrorResponse(message: string, status: HttpStatus) {
   return {
     message,

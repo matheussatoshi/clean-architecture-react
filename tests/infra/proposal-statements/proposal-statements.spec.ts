@@ -1,4 +1,4 @@
-import { proposalTryStatements } from "@/infra/middleware/proposal-statements";
+import { tuple } from "@/infra/middleware/tuple-it";
 import { faker } from "@faker-js/faker";
 import { createAxiosError, mockPromiseData } from "./proposal-statements.mock";
 
@@ -14,7 +14,7 @@ describe("Proposal Try Statements", () => {
     const mockResponse = { data: faker.string.uuid() };
     const promise = mockPromise.mockPromise(mockResponse);
 
-    const result = await proposalTryStatements(promise);
+    const result = await tuple(promise);
 
     expect(result).toEqual([true, null, mockResponse]);
   });
@@ -23,7 +23,7 @@ describe("Proposal Try Statements", () => {
     const mockError = sut.createAxiosError("Error 403", 403);
     const promise = mockPromise.mockRejectedPromise(mockError);
 
-    const result = await proposalTryStatements(promise);
+    const result = await tuple(promise);
 
     expect(result).toEqual([false, "Erro 403 - Não autorizado", null]);
   });
@@ -35,7 +35,7 @@ describe("Proposal Try Statements", () => {
     });
     const promise = mockPromise.mockRejectedPromise(mockError);
 
-    const result = await proposalTryStatements(promise);
+    const result = await tuple(promise);
 
     expect(result).toEqual([false, customMessage, null]);
   });
@@ -45,7 +45,7 @@ describe("Proposal Try Statements", () => {
     const mockError = sut.createAxiosError(unknownMessage);
     const promise = mockPromise.mockRejectedPromise(mockError);
 
-    const result = await proposalTryStatements(promise);
+    const result = await tuple(promise);
 
     expect(result).toEqual([
       false,
