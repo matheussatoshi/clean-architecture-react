@@ -12,8 +12,6 @@ export default function HomePage() {
   const getPosts = useCallback(async () => {
     const [ok, err, response] = await posts.findAll();
 
-    console.log(ok);
-
     if (ok) setData(response.data);
 
     if (err) setError(err.message);

@@ -1,13 +1,13 @@
-const host = window.location.hostname.includes("localhost");
+const MODE = import.meta.env.VITE_MODE.includes("development");
+const DOMAIN = window.location.hostname.includes("localhost");
+
+const host = MODE || DOMAIN;
 
 const getURL = (): string => {
-  let url: string;
-
-  if (host) url = process.env.BASE_URL_DEV;
-
-  return (url = process.env.BASE_URL_PROD);
+  if (host) return import.meta.env.VITE_DEV_BASE_URL;
+  return import.meta.env.VITE_PROD_BASE_URL;
 };
 
 const makeURL = (): string => getURL();
 
-export { getURL, host, makeURL };
+export { host, makeURL };
