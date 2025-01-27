@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    /* Types */
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node", "faker"],
+
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",
     "useDefineForClassFields": true,
