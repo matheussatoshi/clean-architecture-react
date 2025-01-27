@@ -12,12 +12,11 @@ export default function HomePage() {
   const getPosts = useCallback(async () => {
     const [ok, err, response] = await posts.findAll();
 
-    if (ok) {
-      setData(response.data);
-      setError("");
-    }
+    console.log(ok);
 
-    if (err) setError("Algo deu errado");
+    if (ok) setData(response.data);
+
+    if (err) setError(err.message);
 
     setLoading(false);
   }, [posts]);

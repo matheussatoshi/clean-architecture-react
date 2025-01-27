@@ -8,7 +8,7 @@ export function PostList({ data }: { data: PostBodyResponse[] }) {
   return (
     <ol>
       {postsMemo.map((post) => (
-        <PostItem id={post.id} {...post} />
+        <PostItem key={post.id} {...post} />
       ))}
     </ol>
   );
