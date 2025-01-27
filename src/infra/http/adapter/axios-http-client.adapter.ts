@@ -1,14 +1,17 @@
-import { proposalTryStatements } from "@/infra/adapters/proposal-statements";
-import type { ProposalResponse } from "@/infra/middleware/proposal-statements";
+import {
+  proposalTryStatements,
+  type ProposalResponse,
+} from "@/infra/middleware/proposal-statements";
+
+import appConfig from "@/main/config/default";
+import Axios, { AxiosRequestConfig, type AxiosInstance } from "axios";
 import {
   HttpMethods,
   type HttpClientPort,
   type MakeHttpRequestParams,
   type MakeNoBodyHttpRequestParams,
   type MakeWithBodyHttpRequestParams,
-} from "@/infra/ports/http";
-import appConfig from "@/main/config/default";
-import Axios, { AxiosRequestConfig, type AxiosInstance } from "axios";
+} from "../ports";
 
 export class AxiosHttpClientAdapter implements HttpClientPort {
   private httpInstance: AxiosInstance;
