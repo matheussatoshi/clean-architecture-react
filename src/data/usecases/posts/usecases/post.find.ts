@@ -1,9 +1,9 @@
+import { PostsFindContract } from "@/domain/contracts/posts";
 import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
-import { TupleTreatment } from "@/infra/middleware/tuple-it";
-import { FindPostsContract } from "../contracts/posts.contract";
-import { PostBodyResponse } from "../domain/posts.dto";
+import { TupleTreatment } from "@/infra/lib/tuple-it";
+import { PostBodyResponse } from "../domain";
 
-export class FindPosts implements FindPostsContract {
+export class FindPosts implements PostsFindContract {
   private httpClient: AxiosHttpClientAdapter;
 
   constructor(httpClient: AxiosHttpClientAdapter) {

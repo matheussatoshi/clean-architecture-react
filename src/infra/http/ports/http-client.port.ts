@@ -1,8 +1,8 @@
 import type {
   MakeNoBodyHttpRequestParams,
   MakeWithBodyHttpRequestParams,
-} from "@/data/protocols/http-client.protocol";
-import { TupleTreatment } from "@/infra/middleware/tuple-it";
+} from "@/domain/protocols/http/http-client.protocol";
+import { TupleTreatment } from "@/infra/lib/tuple-it";
 
 export interface HttpClientPort {
   setAuthorization(token: string): void | undefined;

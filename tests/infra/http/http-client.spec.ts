@@ -3,8 +3,8 @@ import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
 import {
   MakeNoBodyHttpRequestParams,
   MakeWithBodyHttpRequestParams,
-} from "@/data/protocols/http-client.protocol";
-import { tuple } from "@/infra/middleware/tuple-it/tuple-it.adapter";
+} from "@/domain/protocols/http/http-client.protocol";
+import { tuple } from "@/infra/lib/tuple-it";
 import { mockResolvedValue, mockResponse } from "./http-client.mock";
 
 jest.mock("@/infra/adapters/proposal-statements", () => ({

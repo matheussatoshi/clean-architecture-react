@@ -1,10 +1,10 @@
-import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
-import { TupleTreatment } from "@/infra/middleware/tuple-it";
-import { PostControllerContract } from "./contracts";
-import { PostBodyResponse } from "./domain";
-import { FindPosts } from "./usecases";
+import type { PostsControllerContract } from "@/domain/contracts/posts";
+import { AxiosHttpClientAdapter } from "@/infra/http";
+import type { TupleTreatment } from "@/infra/lib/tuple-it";
+import { PostBodyResponse } from "../domain";
+import { FindPosts } from "./post.find";
 
-export class PostsController implements PostControllerContract {
+export class PostsController implements PostsControllerContract {
   private findPostsService: FindPosts;
 
   constructor(httpClient: AxiosHttpClientAdapter) {

@@ -1,5 +1,8 @@
-import { inject } from "@/domain/inject";
-import { PostBodyResponse, PostsController } from "@/domain/modules/posts";
+import type {
+  PostBodyResponse,
+  PostsControllerContract,
+} from "@/domain/contracts/posts";
+import { inject } from "@/infra/lib/inject";
 import { Link } from "@/presentation/components";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -7,7 +10,7 @@ import { PostContent } from "./(components)/post-content";
 
 export default function PostPage() {
   const { id, author } = useParams<{ id: string; author: string }>();
-  const posts = inject<PostsController>("postsService");
+  const posts = inject<PostsControllerContract>("posts");
   const [data, setData] = useState<PostBodyResponse | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");

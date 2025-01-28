@@ -1,4 +1,4 @@
-import { PostsController } from "@/domain/modules/posts";
+import { PostsController } from "@/data/usecases/posts";
 import { AxiosHttpClientAdapter } from "@/infra/http/adapter";
 import { mockPosts } from "./posts-controller.mock";
 

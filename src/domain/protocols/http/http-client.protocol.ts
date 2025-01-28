@@ -1,4 +1,6 @@
-export type HttpParams = Record<string, string | number | boolean>;
+import { AxiosRequestConfig } from "axios";
+
+export type HttpRequestConfig = Partial<AxiosRequestConfig>;
 
 export enum HttpMethods {
   GET = "get",
@@ -17,18 +19,18 @@ export type MakeHttpRequestParams = {
   method: HttpMethods;
   url: string;
   data?: any;
-  params?: HttpParams;
+  params?: HttpRequestConfig;
 };
 
 export type MakeNoBodyHttpRequestParams = {
   url: string;
-  params?: HttpParams;
+  params?: HttpRequestConfig;
 };
 
 export type MakeWithBodyHttpRequestParams = {
   url: string;
   body: any;
-  params?: HttpParams;
+  params?: HttpRequestConfig;
 };
 
 export enum HttpStatus {
@@ -42,11 +44,3 @@ export enum HttpStatus {
   TOO_MANY_REQUESTS = 429,
   INTERNAL_SERVER = 500,
 }
-
-type Response = {
-  message: string;
-  status: HttpStatus;
-  resolve: boolean;
-};
-
-export type PromiseStatusResponse = Response;

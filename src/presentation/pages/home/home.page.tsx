@@ -1,10 +1,13 @@
-import { inject } from "@/domain/inject";
-import { PostBodyResponse, PostsController } from "@/domain/modules/posts";
+import type {
+  PostBodyResponse,
+  PostsControllerContract,
+} from "@/domain/contracts/posts";
+import { inject } from "@/infra/lib/inject";
 import { useCallback, useEffect, useState } from "react";
 import { PostList } from "./(components)";
 
 export default function HomePage() {
-  const posts = inject<PostsController>("postsService");
+  const posts = inject<PostsControllerContract>("posts");
   const [data, setData] = useState<PostBodyResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");

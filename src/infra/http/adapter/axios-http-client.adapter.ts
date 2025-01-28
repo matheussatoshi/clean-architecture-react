@@ -1,4 +1,4 @@
-import { tuple, type TupleTreatment } from "@/infra/middleware/tuple-it";
+import { tuple, type TupleTreatment } from "@/infra/lib/tuple-it";
 
 import defaultConfig from "@/main/config/default";
 import Axios, { AxiosRequestConfig, type AxiosInstance } from "axios";

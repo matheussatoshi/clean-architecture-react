@@ -1,12 +1,12 @@
-import { tuple } from "@/infra/middleware/tuple-it";
+import { tuple } from "@/infra/lib/tuple-it";
 import { faker } from "@faker-js/faker";
-import { createAxiosError, mockPromiseData } from "./proposal-statements.mock";
+import { createAxiosError, mockPromiseData } from "./tuple-it.mock";
 
 const makeSut = () => ({
   createAxiosError,
 });
 
-describe("Proposal Try Statements", () => {
+describe("Tuple It tests", () => {
   const sut = makeSut();
   const mockPromise = mockPromiseData();
 
