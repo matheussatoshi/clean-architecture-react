@@ -1,7 +1,5 @@
-import type {
-  PostBodyResponse,
-  PostsControllerContract,
-} from "@/domain/contracts/posts";
+import type { PostBodyResponse } from "@/data/usecases";
+import type { PostsControllerContract } from "@/domain/contracts/posts";
 import { inject } from "@/infra/lib/inject";
 import { Link } from "@/presentation/components";
 import { useCallback, useEffect, useState } from "react";

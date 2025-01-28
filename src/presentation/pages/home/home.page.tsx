@@ -1,23 +1,24 @@
-import type {
-  PostBodyResponse,
-  PostsControllerContract,
-} from "@/domain/contracts/posts";
+import { PostBodyResponse } from "@/data/usecases";
+import { PostsControllerContract } from "@/domain/contracts/posts";
 import { inject } from "@/infra/lib/inject";
 import { useCallback, useEffect, useState } from "react";
 import { PostList } from "./(components)";
 
 export default function HomePage() {
   const posts = inject<PostsControllerContract>("posts");
+
   const [data, setData] = useState<PostBodyResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
   const getPosts = useCallback(async () => {
-    const [ok, err, response] = await posts.findAll();
+    const [_, err, response] = await posts.findAll();
 
-    if (ok) setData(response.data);
-
-    if (err) setError(err.message);
+    if (err) {
+      setError(err.message);
+    } else {
+      setData(response.data);
+    }
 
     setLoading(false);
   }, [posts]);
