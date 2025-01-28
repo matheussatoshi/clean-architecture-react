@@ -29,7 +29,7 @@ export type MakeNoBodyHttpRequestParams = {
 
 export type MakeWithBodyHttpRequestParams = {
   url: string;
-  body: any;
+  data: any;
   params?: HttpRequestConfig;
 };
 
