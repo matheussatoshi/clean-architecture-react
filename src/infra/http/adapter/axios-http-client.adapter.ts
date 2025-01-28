@@ -20,6 +20,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
       headers: {
         "Content-Type": "application/json",
         "Content-Encoding": "gzip",
+        "Access-Control-Allow-Origin": "*",
         ...(config?.headers || {}),
       },
       ...config,
