@@ -1,12 +1,13 @@
 import { CacheClientPort } from "../ports";
 
 export class LocalStorageClientAdapter implements CacheClientPort {
-  getItem(key: string): string | null {
-    return localStorage.getItem(key);
+  getItem<T = string>(key: string): T | null {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
   }
 
-  setItem(key: string, value: string): void {
-    localStorage.setItem(key, value);
+  setItem<T = string>(key: string, value: T): void {
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
   removeItem(key: string): void {
