@@ -1,4 +1,4 @@
-import { PostsController } from "@/data/usecases/posts";
+import { AuthenticationMiddleware, PostsController } from "@/data/usecases";
 import { LocalStorageClientAdapter } from "@/infra/cache";
 import { AxiosHttpClientAdapter } from "@/infra/http";
 import * as iti from "iti";
@@ -16,4 +16,5 @@ export const builder = iti
   /* Services */
   .add(({ http }) => ({
     posts: new PostsController(http),
+    authentication: new AuthenticationMiddleware(http),
   }));
