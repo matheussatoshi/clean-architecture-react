@@ -1,4 +1,4 @@
-import { PostBodyResponse } from "@/domain/modules/posts";
+import { PostBodyResponse } from "@/data/usecases";
 import { faker } from "@faker-js/faker";
 
 const generateRandomPost = (id: number): PostBodyResponse => ({
