@@ -1,6 +1,6 @@
-export type GetItemCache = (key: string) => string | null;
+export type GetItemCache = <T>(key: string) => T | null;
 
-export type SetItemCache = (key: string, value: string) => void;
+export type SetItemCache = <T>(key: string, value: T) => void;
 
 export type RemoveItemCache = (key: string) => void;
 
