@@ -1,6 +1,6 @@
 import { AuthenticationMiddlewareContract } from "@/domain/contracts/authentication";
 import { AxiosHttpClientAdapter } from "@/infra/http";
-import { TupleForwarded } from "@/infra/lib/tuple-it";
+import { TupleRequest } from "@/infra/lib/tuple-it";
 import { AuthenticationDomain } from "../domain/authentication.dto";
 
 export class AuthenticationMiddleware
@@ -14,7 +14,7 @@ export class AuthenticationMiddleware
 
   public async signIn(
     params: AuthenticationDomain.Credentials,
-  ): TupleForwarded<AuthenticationDomain.Session> {
+  ): TupleRequest<AuthenticationDomain.Session> {
     const response = await this.httpClient.post<AuthenticationDomain.Session>({
       url: "/login",
       data: {
@@ -27,7 +27,7 @@ export class AuthenticationMiddleware
 
   public async signUp(
     params: AuthenticationDomain.Credentials,
-  ): TupleForwarded<AuthenticationDomain.Meta> {
+  ): TupleRequest<AuthenticationDomain.Meta> {
     const response = await this.httpClient.post<AuthenticationDomain.Meta>({
       url: "/register",
       data: {
@@ -40,7 +40,7 @@ export class AuthenticationMiddleware
 
   public async refreshToken(
     params: AuthenticationDomain.RefreshToken,
-  ): TupleForwarded<AuthenticationDomain.SessionToken> {
+  ): TupleRequest<AuthenticationDomain.SessionToken> {
     const response =
       await this.httpClient.post<AuthenticationDomain.SessionToken>({
         url: "/refresh-token",
