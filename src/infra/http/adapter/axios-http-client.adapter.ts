@@ -9,13 +9,15 @@ import {
   type MakeWithBodyHttpRequestParams,
 } from "../ports";
 
+const { api } = defaultConfig();
+
 export class AxiosHttpClientAdapter implements HttpClientPort {
   private httpInstance: AxiosInstance;
 
   constructor(config?: AxiosRequestConfig) {
     const finalConfig: AxiosRequestConfig = {
-      timeout: defaultConfig.api.timeout || config?.timeout,
-      baseURL: defaultConfig.api.url || config?.baseURL,
+      timeout: api.timeout || config?.timeout,
+      baseURL: api.url || config?.baseURL,
       headers: {
         "Content-Type": "application/json",
         "Content-Encoding": "gzip",
@@ -28,9 +30,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
     this.httpInstance = Axios.create(finalConfig);
   }
 
-  setTokenExpirationStrategy(
-    tokenExpireStrategy: () => Promise<string | null>,
-  ) {
+  setTokenExpirationStrategy(tokenExpireStrategy: () => Promise<string | null>) {
     this.httpInstance.interceptors.request.clear();
     this.httpInstance.interceptors.request.use(async (config) => {
       const newTokenProvided = await tokenExpireStrategy();
@@ -50,9 +50,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
     return this.httpInstance.defaults.headers.common.Authorization!.toString();
   }
 
-  private async makeRequest<T = any>(
-    params: MakeHttpRequestParams,
-  ): HttpResponse<T> {
+  private async makeRequest<T = any>(params: MakeHttpRequestParams): HttpResponse<T> {
     return this.httpInstance.request<T>(params);
   }
 
@@ -70,9 +68,7 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
     });
   }
 
-  public async patch<T>(
-    params: MakeWithBodyHttpRequestParams,
-  ): HttpResponse<T> {
+  public async patch<T>(params: MakeWithBodyHttpRequestParams): HttpResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.PATCH,
       ...params,
@@ -86,45 +82,35 @@ export class AxiosHttpClientAdapter implements HttpClientPort {
     });
   }
 
-  public async delete<T = any>(
-    params: MakeNoBodyHttpRequestParams,
-  ): HttpResponse<T> {
+  public async delete<T = any>(params: MakeNoBodyHttpRequestParams): HttpResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.DELETE,
       ...params,
     });
   }
 
-  public async connect<T = any>(
-    params: MakeNoBodyHttpRequestParams,
-  ): HttpResponse<T> {
+  public async connect<T = any>(params: MakeNoBodyHttpRequestParams): HttpResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.CONNECT,
       ...params,
     });
   }
 
-  public async head<T = any>(
-    params: MakeNoBodyHttpRequestParams,
-  ): HttpResponse<T> {
+  public async head<T = any>(params: MakeNoBodyHttpRequestParams): HttpResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.HEAD,
       ...params,
     });
   }
 
-  public async options<T = any>(
-    params: MakeNoBodyHttpRequestParams,
-  ): HttpResponse<T> {
+  public async options<T = any>(params: MakeNoBodyHttpRequestParams): HttpResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.OPTIONS,
       ...params,
     });
   }
 
-  public async trace<T = any>(
-    params: MakeNoBodyHttpRequestParams,
-  ): HttpResponse<T> {
+  public async trace<T = any>(params: MakeNoBodyHttpRequestParams): HttpResponse<T> {
     return await this.makeRequest<T>({
       method: HttpMethods.TRACE,
       ...params,
