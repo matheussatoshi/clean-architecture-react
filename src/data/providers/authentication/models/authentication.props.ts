@@ -1,10 +1,10 @@
 import { AuthenticationDomain } from "@/data/usecases";
+import { LocalStorageClientAdapter } from "@/infra/cache";
+import { AxiosHttpClientAdapter } from "@/infra/http";
 
 export interface AuthenticationContextProps {
-  session?: AuthenticationDomain.Session;
-  handleSignIn: (params: AuthenticationDomain.Credentials) => Promise<void>;
-  handleSignUp: (params: AuthenticationDomain.Credentials) => Promise<void>;
-  handleRefreshToken: (
-    params: AuthenticationDomain.RefreshToken,
-  ) => Promise<void>;
+  http: AxiosHttpClientAdapter;
+  storage: LocalStorageClientAdapter;
+  session: AuthenticationDomain.Session | undefined;
+  setSession: React.Dispatch<React.SetStateAction<AuthenticationDomain.Session | undefined>>;
 }

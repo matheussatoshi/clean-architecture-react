@@ -3,114 +3,69 @@ import { AuthenticationMiddlewareContract } from "@/domain/contracts/authenticat
 import { LocalStorageClientAdapter } from "@/infra/cache";
 import { AxiosHttpClientAdapter } from "@/infra/http";
 import { inject } from "@/infra/lib/inject";
-import { urls } from "@/main/routing";
+import { tuple } from "@/infra/lib/tuple-it";
+import defaultConfig from "@/main/config/default";
+import { makeAuthorization, makeToken } from "@/main/factories/http/authorization.factory";
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthenticationContext } from "./authentication.context";
 
+const { tags } = defaultConfig();
+
+function isValidSession(session: AuthenticationDomain.Session | null | undefined): boolean {
+  return (
+    session !== null && session !== undefined && session.meta?.id?.trim() !== "" && session.meta?.email?.trim() !== ""
+  );
+}
+
+function getStoredSession(storage: LocalStorageClientAdapter): AuthenticationDomain.Session | undefined {
+  const storedSession = storage.getItem<AuthenticationDomain.Session>(tags["@session"]);
+
+  if (!isValidSession(storedSession)) {
+    return undefined;
+  }
+
+  return storedSession;
+}
+
 export function AuthenticationProvider({ children }: React.PropsWithChildren) {
-  const navigate = useNavigate();
   const http = inject<AxiosHttpClientAdapter>("http");
   const storage = inject<LocalStorageClientAdapter>("storage");
-  const authentication =
-    inject<AuthenticationMiddlewareContract>("authentication");
-  const [session, setSession] = React.useState<
-    AuthenticationDomain.Session | undefined
-  >(() => {
-    const storedSession =
-      storage.getItem<AuthenticationDomain.Session>("session");
-    return storedSession ? storedSession : undefined;
+  const authentication = inject<AuthenticationMiddlewareContract>("authentication");
+  const [session, setSession] = React.useState<AuthenticationDomain.Session | undefined>(() => {
+    return getStoredSession(storage);
   });
 
-  const handleSignIn = React.useCallback(
-    async (params: AuthenticationDomain.Credentials) => {
-      const [ok, error, response] = await authentication.signIn(params);
-
-      if (error) {
-        console.log(error.message);
-        return;
-      }
-
-      if (ok) {
-        setSession(response.data);
-        storage.setItem("session", JSON.stringify(response.data));
-
-        if (response.data.RefreshToken) {
-          storage.setItem("refreshToken", response.data.RefreshToken);
-        } else {
-          console.error("RefreshToken is undefined or missing.");
-        }
-
-        http.setAuthorization(`Bearer ${response.data.AccessToken}`);
-        navigate(urls.redirect.DASHBOARD);
-      }
-    },
-    [authentication],
-  );
-
-  const handleSignUp = React.useCallback(
-    async (params: AuthenticationDomain.Credentials) => {
-      const [ok, error] = await authentication.signUp(params);
-
-      if (ok) console.log(ok.message);
-      if (error) console.log(error.message);
-    },
-    [authentication],
-  );
-
-  const handleRefreshToken = React.useCallback(
-    async (params: AuthenticationDomain.RefreshToken) => {
-      const [ok, error, response] = await authentication.refreshToken(params);
-
-      if (ok) {
-        storage.setItem(
-          "session",
-          JSON.stringify({ ...session, ...response.data }),
-        );
-        storage.setItem("refreshToken", response.data.RefreshToken);
-        http.setAuthorization(`Bearer ${response.data.AccessToken}`);
-        setSession((prevSession) => ({
-          ...prevSession,
-          ...response.data,
-        }));
-      }
-
-      if (error) {
-        console.log(error.message);
-      }
-    },
-    [authentication, session],
-  );
-
   const handleBootstrapAuthentication = React.useCallback(async () => {
-    const storedSession =
-      storage.getItem<AuthenticationDomain.Session>("session");
-    const storedRefreshToken =
-      storage.getItem<AuthenticationDomain.RefreshToken>("refreshToken");
+    const storedSession = storage.getItem<AuthenticationDomain.Session>(tags["@session"]);
+    const storedRefreshToken = storage.getItem<AuthenticationDomain.RefreshToken>(tags["@refreshToken"]);
 
-    if (storedSession) {
+    if (storedSession && isValidSession(storedSession)) {
       setSession(storedSession);
-      http.setAuthorization(`Bearer ${storedSession.AccessToken}`);
+
+      http.setAuthorization(makeToken({ accessToken: storedSession.AccessToken }));
+    } else {
+      storage.removeItem(tags["@session"]);
+      storage.removeItem(tags["@refreshToken"]);
+      return;
     }
 
     if (storedRefreshToken) {
-      const [ok, error, response] = await authentication.refreshToken({
-        token: storedRefreshToken.token,
-      });
+      const [error, result] = await tuple(authentication.refreshToken({ token: storedRefreshToken.token }));
+      const { accessToken, refreshToken } = makeAuthorization(result.data);
 
-      if (ok) {
-        storage.setItem("session", { ...session, ...response.data });
-        storage.setItem("refreshToken", response.data.RefreshToken);
-        http.setAuthorization(`Bearer ${response.data.AccessToken}`);
-        setSession((prevSession) => ({
-          ...prevSession,
-          ...response.data,
-        }));
-      } else {
+      if (error) {
         console.error("Erro ao fazer refresh do token:", error?.message);
-        storage.removeItem("session");
-        storage.removeItem("refreshToken");
+        storage.removeItem(tags["@session"]);
+        storage.removeItem(tags["@refreshToken"]);
+
+        return;
       }
+
+      storage.setItem(tags["@session"], { ...session, ...result.data });
+      storage.setItem(tags["@refreshToken"], refreshToken);
+
+      http.setAuthorization(makeToken({ accessToken }));
+      setSession((prevSession) => ({ ...prevSession, ...result.data }));
     }
   }, [authentication, session]);
 
@@ -119,9 +74,7 @@ export function AuthenticationProvider({ children }: React.PropsWithChildren) {
   }, [authentication]);
 
   return (
-    <AuthenticationContext.Provider
-      value={{ session, handleSignUp, handleSignIn, handleRefreshToken }}
-    >
+    <AuthenticationContext.Provider value={{ session, http, storage, setSession }}>
       {children}
     </AuthenticationContext.Provider>
   );
