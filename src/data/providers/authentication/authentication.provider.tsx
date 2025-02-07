@@ -1,4 +1,4 @@
-import { AuthenticationEntity } from "@/data/usecases";
+import { AuthenticationDomain } from "@/data/usecases";
 import { AuthenticationMiddlewareContract } from "@/domain/contracts/authentication";
 import { LocalStorageClientAdapter } from "@/infra/cache";
 import { AxiosHttpClientAdapter } from "@/infra/http";
@@ -15,15 +15,15 @@ export function AuthenticationProvider({ children }: React.PropsWithChildren) {
   const authentication =
     inject<AuthenticationMiddlewareContract>("authentication");
   const [session, setSession] = React.useState<
-    AuthenticationEntity.Session | undefined
+    AuthenticationDomain.Session | undefined
   >(() => {
     const storedSession =
-      storage.getItem<AuthenticationEntity.Session>("session");
+      storage.getItem<AuthenticationDomain.Session>("session");
     return storedSession ? storedSession : undefined;
   });
 
   const handleSignIn = React.useCallback(
-    async (params: AuthenticationEntity.Credentials) => {
+    async (params: AuthenticationDomain.Credentials) => {
       const [ok, error, response] = await authentication.signIn(params);
 
       if (error) {
@@ -49,7 +49,7 @@ export function AuthenticationProvider({ children }: React.PropsWithChildren) {
   );
 
   const handleSignUp = React.useCallback(
-    async (params: AuthenticationEntity.Credentials) => {
+    async (params: AuthenticationDomain.Credentials) => {
       const [ok, error] = await authentication.signUp(params);
 
       if (ok) console.log(ok.message);
@@ -59,7 +59,7 @@ export function AuthenticationProvider({ children }: React.PropsWithChildren) {
   );
 
   const handleRefreshToken = React.useCallback(
-    async (params: AuthenticationEntity.RefreshToken) => {
+    async (params: AuthenticationDomain.RefreshToken) => {
       const [ok, error, response] = await authentication.refreshToken(params);
 
       if (ok) {
@@ -84,9 +84,9 @@ export function AuthenticationProvider({ children }: React.PropsWithChildren) {
 
   const handleBootstrapAuthentication = React.useCallback(async () => {
     const storedSession =
-      storage.getItem<AuthenticationEntity.Session>("session");
+      storage.getItem<AuthenticationDomain.Session>("session");
     const storedRefreshToken =
-      storage.getItem<AuthenticationEntity.RefreshToken>("refreshToken");
+      storage.getItem<AuthenticationDomain.RefreshToken>("refreshToken");
 
     if (storedSession) {
       setSession(storedSession);

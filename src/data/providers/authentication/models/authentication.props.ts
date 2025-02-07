@@ -1,10 +1,10 @@
-import { AuthenticationEntity } from "@/data/usecases";
+import { AuthenticationDomain } from "@/data/usecases";
 
 export interface AuthenticationContextProps {
-  session?: AuthenticationEntity.Session;
-  handleSignIn: (params: AuthenticationEntity.Credentials) => Promise<void>;
-  handleSignUp: (params: AuthenticationEntity.Credentials) => Promise<void>;
+  session?: AuthenticationDomain.Session;
+  handleSignIn: (params: AuthenticationDomain.Credentials) => Promise<void>;
+  handleSignUp: (params: AuthenticationDomain.Credentials) => Promise<void>;
   handleRefreshToken: (
-    params: AuthenticationEntity.RefreshToken,
+    params: AuthenticationDomain.RefreshToken,
   ) => Promise<void>;
 }

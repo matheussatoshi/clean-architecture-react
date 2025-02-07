@@ -1,4 +1,4 @@
-export namespace AuthenticationEntity {
+export namespace AuthenticationDomain {
   export type Session = {
     AccessToken: string;
     ExpiresIn: number;
