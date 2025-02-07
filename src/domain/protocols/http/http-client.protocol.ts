@@ -1,6 +1,7 @@
-import { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export type HttpRequestConfig = Partial<AxiosRequestConfig>;
+export type HttpResponse<T> = Promise<AxiosResponse<T>>;
 
 export enum HttpMethods {
   GET = "get",
