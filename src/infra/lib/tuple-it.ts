@@ -1,85 +1,37 @@
-import { AxiosError, AxiosResponse } from "axios";
-import { HttpStatus } from "../http/ports";
+import { AxiosResponse } from "axios";
 
-type Response = {
-  message: string;
-  status: HttpStatus;
-  resolve: boolean;
+export type TupleRequest<T> = Promise<AxiosResponse<T, any>>;
+
+export type TuplePromise<T> = {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: any;
+  config: any;
+  request: any;
 };
 
-export type TupleItResponse<T> = Promise<
-  [Response, Response, T | null | undefined]
->;
+export type TupleResult<T, E> = Promise<[null, TuplePromise<T>] | [E, null]>;
 
-export type TupleTreatment<T> = Promise<TupleItResponse<AxiosResponse<T, any>>>;
-
-export type TupleForwarded<T> = Promise<TupleTreatment<T>>;
-
-export type TupleError = { message?: string };
-
-export async function tuple<T = any>(
-  promise: Promise<T>,
-): Promise<TupleItResponse<T>> {
+export async function tuple<T = any, E = any>(
+  promise: Promise<AxiosResponse<T>>,
+): TupleResult<T, E> {
   try {
-    const value = await promise;
+    const response = await promise;
 
-    const ok = createSuccess("Requisição bem-sucedida", HttpStatus.OK);
+    const { data, status, statusText, headers, config, request } = response;
 
-    return [ok, null, value];
-  } catch (catchError) {
-    const axiosError = catchError as AxiosError<TupleError>;
+    const result: TuplePromise<T> = {
+      data,
+      status,
+      statusText,
+      headers,
+      config,
+      request,
+    };
 
-    if (axiosError.response) {
-      const statusCode = axiosError.response.status;
-      let error;
-
-      if (statusCode === HttpStatus.FORBIDDEN) {
-        error = createFailed("Acesso não autorizado", HttpStatus.FORBIDDEN);
-        return [null, error, null];
-      }
-
-      if (statusCode === HttpStatus.BAD_REQUEST) {
-        error = createFailed("Erro na requisição", HttpStatus.BAD_REQUEST);
-        return [null, error, null];
-      }
-
-      if (statusCode === HttpStatus.NOT_FOUND) {
-        error = createFailed("Recurso não encontrado", HttpStatus.NOT_FOUND);
-        return [null, error, null];
-      }
-
-      if (statusCode === HttpStatus.TOO_MANY_REQUESTS) {
-        error = createFailed(
-          "Número excessivo de requisições",
-          HttpStatus.TOO_MANY_REQUESTS,
-        );
-        return [null, error, null];
-      }
-
-      if (statusCode === HttpStatus.INTERNAL_SERVER) {
-        error = createFailed("Erro no servidor", HttpStatus.INTERNAL_SERVER);
-        return [null, error, null];
-      }
-
-      if (axiosError.response.data?.message) {
-        error = createFailed(
-          axiosError.response.data.message,
-          statusCode as HttpStatus,
-        );
-        return [null, error, null];
-      }
-    }
-
-    const error = createFailed("Erro desconhecido", HttpStatus.INTERNAL_SERVER);
-
-    return [null, error, null];
+    return [null, result];
+  } catch (error) {
+    return [error as E, null];
   }
-}
-
-function createSuccess(message: string, status: HttpStatus) {
-  return { message, status, resolve: true };
-}
-
-function createFailed(message: string, status: HttpStatus) {
-  return { message, status, resolve: false };
 }
