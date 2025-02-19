@@ -29,8 +29,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/tests/*": ["./tests/*"],
+      "@/scripts/*": ["./scripts/*"],
       "@/interfaces/*": ["./interfaces/*"]
     }
   },
-  "include": ["src", "tests", "interfaces", "vite-env.d.ts"]
+  "include": ["src", "scripts", "tests", "interfaces", "vite-env.d.ts"]
 }
