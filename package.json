@@ -8,13 +8,15 @@
   "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
     "build": "tsc -b && vite build",
     "lint": "eslint \"src/**/*\" --fix",
-    "preview": "vite preview",
-    "prepare": "husky",
-    "test": "vitest",
     "coverage": "vitest run --coverage",
-    "server": "json-server server.json --watch"
+    "server": "json-server server.json --watch",
+    "clean": "rimraf .next coverage",
+    "test": "vitest",
+    "cz": "cz",
+    "prepare": "husky"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",
@@ -28,8 +30,14 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "@commitlint/cz-commitlint": "^19.6.1",
+    "@commitlint/types": "^19.5.0",
     "@eslint/js": "^9.17.0",
     "@faker-js/faker": "^9.3.0",
+    "rimraf": "^6.0.1",
+    "lint-staged": "^15.4.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
@@ -57,6 +65,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/matheussatoshi/clean-architecture-react"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@commitlint/cz-commitlint"
+    }
   },
   "keywords": [
     "react",
