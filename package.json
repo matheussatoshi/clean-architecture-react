@@ -5,7 +5,6 @@
   "version": "0.1.0",
   "type": "module",
   "author": "mathessatoshi",
-  "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "vite",
     "preview": "vite preview",
@@ -79,5 +78,6 @@
     "solid",
     "clean-architecture",
     "clean-code"
-  ]
+  ],
+  "packageManager": "pnpm@9.12.3"
 }
