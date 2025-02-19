@@ -13,9 +13,7 @@ export type TuplePromise<T> = {
 
 export type TupleResult<T, E> = Promise<[null, TuplePromise<T>] | [E, null]>;
 
-export async function tuple<T = any, E = any>(
-  promise: Promise<AxiosResponse<T>>,
-): TupleResult<T, E> {
+export async function tuple<T = any, E = any>(promise: Promise<AxiosResponse<T>>): TupleResult<T, E> {
   try {
     const response = await promise;
 
