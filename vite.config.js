@@ -24,7 +24,6 @@ export default defineConfig({
     minify: "esbuild",
     target: "esnext",
     rollupOptions: {
-      external: ["react", "react-dom"],
       output: {
         manualChunks: {
           vendor: ["react", "react-dom"],
