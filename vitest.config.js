@@ -5,7 +5,7 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
-      watch: true,
+      watch: false,
       globals: true,
       environment: "jsdom",
       coverage: {

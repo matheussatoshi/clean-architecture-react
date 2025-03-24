@@ -14,6 +14,7 @@
     "server": "json-server server.json --watch",
     "clean": "rimraf .next coverage",
     "test": "vitest",
+    "test:watch": "vitest -w",
     "cz": "cz",
     "prepare": "husky"
   },
