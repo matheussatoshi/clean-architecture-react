@@ -20,6 +20,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",
     "axios": "^1.7.9",
+    "inquirer": "^12.5.0",
     "iti": "^0.7.0",
     "json-server": "^1.0.0-beta.3",
     "react": "19.0.0-rc.0",
@@ -35,8 +36,6 @@
     "@commitlint/types": "^19.5.0",
     "@eslint/js": "^9.17.0",
     "@faker-js/faker": "^9.3.0",
-    "rimraf": "^6.0.1",
-    "lint-staged": "^15.4.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
@@ -52,8 +51,10 @@
     "globals": "^15.14.0",
     "husky": "^9.1.7",
     "jsdom": "^26.0.0",
+    "lint-staged": "^15.4.3",
     "prettier": "^3.4.2",
     "prettier-plugin-organize-imports": "^4.1.0",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "5.7.3",
     "typescript-eslint": "^8.18.2",
@@ -78,6 +79,5 @@
     "solid",
     "clean-architecture",
     "clean-code"
-  ],
-  "packageManager": "pnpm@9.12.3"
+  ]
 }
