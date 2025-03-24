@@ -40,7 +40,7 @@ describe("LocalStorage Client Adapter", () => {
     const storedData = sut.getItem(MAIN_KEY);
 
     expect(storedData).toBeTruthy();
-    expect(JSON.parse(storedData)).toEqual(expectedData);
+    expect(JSON.parse(storedData as any)).toEqual(expectedData);
   });
 
   it("should return correct length of stored items", () => {
