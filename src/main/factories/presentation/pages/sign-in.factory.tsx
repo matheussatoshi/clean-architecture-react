@@ -2,6 +2,7 @@ import { AuthenticationMiddlewareContract } from "@/domain/contracts/authenticat
 import { inject } from "@/infra/lib/inject";
 import defaultConfig from "@/main/config/default";
 import { Page } from "@/presentation/pages";
+import { JSX } from "react";
 
 export const makeSignIn = (): JSX.Element => {
   const { tags } = defaultConfig();
